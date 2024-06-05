@@ -1,7 +1,6 @@
 package com.example.semestralnapracadoom.ui.mainMenu
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,10 +11,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -29,12 +26,9 @@ fun MainMenu(
     navController: NavController,
     mmvm: MainMenuViewModel = viewModel()
 ) {
-    val backGround by mmvm.backgroundColor
-
     Column (
         modifier = Modifier
-            .fillMaxSize()
-            .background(backGround),
+            .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -54,9 +48,7 @@ fun MainMenu(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(20.dp , 0.dp) ,
-                    onClick = {
-                        mmvm.changeBackgroundColor(Color.Red)
-                    }
+                    onClick = { /*TODO*/ }
                 ) {
                     Text("MY PLAY")
                 }
@@ -116,7 +108,7 @@ fun MainMenu(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(20.dp , 0.dp) ,
-                    onClick = { /*TODO*/ }
+                    onClick = { navController.navigate("quiz") }
                 ) {
                     Text("QUIZ")
                 }

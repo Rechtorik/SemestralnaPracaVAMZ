@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.semestralnapracadoom.ui.lore.LoreScreen
 import com.example.semestralnapracadoom.ui.mainMenu.MainMenu
 import com.example.semestralnapracadoom.ui.monsters.MonstersMain
+import com.example.semestralnapracadoom.ui.quiz.QuizScreen
 
 @Composable
 fun Navigation() {
@@ -20,6 +21,9 @@ fun Navigation() {
         }
         composable(route = "lore") {
             LoreScreen(navController = navController)
+        }
+        composable(route = "quiz") {
+            QuizScreen(navController = navController)
         }
     }
 }

@@ -56,7 +56,7 @@ fun LoreScreen(navController: NavController) {
                 }
                 item {
                     Image(
-                        painter = painterResource(id = R.drawable.cyber_demon),
+                        painter = painterResource(id = R.drawable.cyber_demon0),
                         contentDescription = null,
                         Modifier.size(500.dp))
                 }
