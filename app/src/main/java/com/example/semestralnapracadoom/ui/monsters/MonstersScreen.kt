@@ -1,6 +1,7 @@
 package com.example.semestralnapracadoom.ui.monsters
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,18 +12,23 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -32,19 +38,29 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.semestralnapracadoom.ui.lore.LoreViewModel
 import kotlinx.coroutines.delay
 
 @Composable
 fun MonstersMain(
     navController: NavController,
-    viewModel: MonstersViewModel = viewModel()
+    viewModel: MonstersViewModel = viewModel(),
+    loreViewModel: LoreViewModel = viewModel()
 ) {
+    val uiState by loreViewModel.uiState.collectAsState()
     Box {
         Column (
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top,
             modifier = Modifier
                 .fillMaxSize()
+                .background(
+                    brush = Brush.radialGradient(
+                        colors = listOf(Color.Red , Color.Blue) ,
+                        center = Offset(1080f , 1920f) , // center of the gradient
+                        radius = 1500f + uiState.value // radius of the gradient
+                    )
+                )
         ) {
             Text(
                 text = "Monsters" ,
@@ -65,6 +81,7 @@ fun MonstersMain(
             }
         }
         Button(
+            elevation = ButtonDefaults.buttonElevation(8.dp),
             modifier = Modifier.align(Alignment.BottomCenter),
             onClick = { navController.navigate("main_menu") },
         ) {

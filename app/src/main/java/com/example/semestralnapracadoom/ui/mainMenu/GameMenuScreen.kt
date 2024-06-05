@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -45,6 +46,7 @@ fun MainMenu(
         ) {
             item {
                 Button(
+                    elevation = ButtonDefaults.buttonElevation(8.dp),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(20.dp , 0.dp) ,
@@ -55,6 +57,7 @@ fun MainMenu(
             }
             item {
                 Button(
+                    elevation = ButtonDefaults.buttonElevation(8.dp),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(20.dp , 0.dp) ,
@@ -65,6 +68,7 @@ fun MainMenu(
             }
             item {
                 Button(
+                    elevation = ButtonDefaults.buttonElevation(8.dp),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(20.dp , 0.dp) ,
@@ -75,6 +79,7 @@ fun MainMenu(
             }
             item {
                 Button(
+                    elevation = ButtonDefaults.buttonElevation(8.dp),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(20.dp , 0.dp) ,
@@ -85,6 +90,7 @@ fun MainMenu(
             }
             item {
                 Button(
+                    elevation = ButtonDefaults.buttonElevation(8.dp),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(20.dp , 0.dp) ,
@@ -95,6 +101,7 @@ fun MainMenu(
             }
             item {
                 Button(
+                    elevation = ButtonDefaults.buttonElevation(8.dp),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(20.dp , 0.dp) ,
@@ -105,6 +112,7 @@ fun MainMenu(
             }
             item {
                 Button(
+                    elevation = ButtonDefaults.buttonElevation(8.dp),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(20.dp , 0.dp) ,

@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">SemestralnaPracaDoom</string>
-    <string name="lore_1">He is intended to be the latest iteration and continuation of the classic DOOM Marine who is the protagonist for most of the series. According to Tom Hall and John Romero (who worked on the original Doom), the original iteration of the DOOM Marine was the grandson[4] of Commander Keen and the great-great-grandson of William J. Blazkowicz. The Doom Slayer\'s Blazkowicz ancestry may or may not be canonical for the modern iteration.</string>
+    <string name="lore_2">Their journey leads them deeper into the heart of the invasion, where they encounter the main source of the demonic threat. Armed and determined, they confront the most powerful demon in a bid to stop the apocalypse and save humanity.</string>
+    <string name="lore_3">Through relentless combat and strategic prowess, the marine battles through the depths of hell, facing increasingly daunting challenges until they confront the ultimate evil threatening to consume both Mars and Earth.</string>
+    <string name="lore_1">In the year 1993, at a space research facility on Mars, a gateway to hell was opened, unleashing a horde of demons. The player assumes the role of a marine soldier, who becomes humanity\'s last hope. Venturing through the research complex, the player confronts an army of demons and fights for survival. Armed with various weapons and tactics, they navigate through bloody corridors, battling against the endless stream of infernal forces.</string>
 </resources>
