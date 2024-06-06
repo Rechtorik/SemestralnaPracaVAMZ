@@ -29,16 +29,16 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.semestralnapracadoom.ui.lore.LoreViewModel
+import com.example.semestralnapracadoom.ui.glowingBackground.GlowingBackgroundViewModel
 
 @Composable
 fun QuizScreen(
-    navController: NavController,
-    viewModel: QuizViewModel = viewModel(),
-    loreViewModel: LoreViewModel = viewModel()
+    navController: NavController ,
+    viewModel: QuizViewModel = viewModel() ,
+    glowingBackgroundViewModel: GlowingBackgroundViewModel = viewModel()
 ) {
     val quizUiState by viewModel.uiState.collectAsState()
-    val uiState by loreViewModel.uiState.collectAsState()
+    val uiState by glowingBackgroundViewModel.uiState.collectAsState()
 
     Box (
         modifier = Modifier
@@ -81,11 +81,13 @@ fun QuizScreen(
                 fontSize = 60.sp
             )
             Text(
+                color = Color.White,
                 textAlign = TextAlign.Center,
                 text = "Score: ${quizUiState.score} \nQuestion ${quizUiState.numberOfQuestions}/10" ,
                 style = typography.titleLarge ,
                 fontWeight = FontWeight.Light,
-                fontSize = 30.sp
+                fontSize = 30.sp,
+                modifier = Modifier.background(Color.White.copy(alpha = 0.3f))
             )
         }
         Button(
@@ -106,54 +108,62 @@ fun ShowQuestion(
     viewModel: QuizViewModel,
     quizUiState: QuizUiState
 ) {
-    Text(
-        text = quizUiState.curQuestion.question,
-        style = typography.displaySmall,
-        fontSize = 30.sp,
-        modifier = Modifier.padding(40.dp),
-        textAlign = TextAlign.Justify
-    )
-    Button(
-        onClick = {
-            if (quizUiState.curQuestion.rightPosition == 0) {
-                viewModel.RightAnswer()
-            } else {
-                viewModel.ButtonClicked()
-            } },
-        modifier = Modifier.width(300.dp)
+    Column (
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = quizUiState.curQuestion.firstOption,
-            style = typography.bodyLarge
+            color = Color.White,
+            text = quizUiState.curQuestion.question,
+            style = typography.displaySmall,
+            fontSize = 30.sp,
+            modifier = Modifier
+                .padding(40.dp)
+                .background(Color.White.copy(alpha = 0.2f)),
+            textAlign = TextAlign.Justify
         )
-    }
-    Button(
-        onClick = {
-            if (quizUiState.curQuestion.rightPosition == 1) {
-                viewModel.RightAnswer()
-            } else {
-                viewModel.ButtonClicked()
-            } },
-        modifier = Modifier.width(300.dp)
-    ) {
-        Text(
-            text = quizUiState.curQuestion.secondOption,
-            style = typography.bodyLarge
-        )
-    }
-    Button(
-        onClick = {
-            if (quizUiState.curQuestion.rightPosition == 2) {
-                viewModel.RightAnswer()
-            } else {
-                viewModel.ButtonClicked()
-            } },
-        modifier = Modifier.width(300.dp)
-    ) {
-        Text(
-            text = quizUiState.curQuestion.rightOption,
-            style = typography.bodyLarge
-        )
+        Button(
+            onClick = {
+                if (quizUiState.curQuestion.rightPosition == 0) {
+                    viewModel.RightAnswer()
+                } else {
+                    viewModel.ButtonClicked()
+                } },
+            modifier = Modifier.width(300.dp)
+        ) {
+            Text(
+                text = quizUiState.curQuestion.firstOption,
+                style = typography.bodyLarge
+            )
+        }
+        Button(
+            onClick = {
+                if (quizUiState.curQuestion.rightPosition == 1) {
+                    viewModel.RightAnswer()
+                } else {
+                    viewModel.ButtonClicked()
+                } },
+            modifier = Modifier.width(300.dp)
+        ) {
+            Text(
+                text = quizUiState.curQuestion.secondOption,
+                style = typography.bodyLarge
+            )
+        }
+        Button(
+            onClick = {
+                if (quizUiState.curQuestion.rightPosition == 2) {
+                    viewModel.RightAnswer()
+                } else {
+                    viewModel.ButtonClicked()
+                } },
+            modifier = Modifier.width(300.dp)
+        ) {
+            Text(
+                text = quizUiState.curQuestion.rightOption,
+                style = typography.bodyLarge
+            )
+        }
     }
 }
 

@@ -5,9 +5,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.AlertDialog
@@ -18,7 +20,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -38,16 +39,16 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.semestralnapracadoom.ui.lore.LoreViewModel
+import com.example.semestralnapracadoom.ui.glowingBackground.GlowingBackgroundViewModel
 import kotlinx.coroutines.delay
 
 @Composable
 fun MonstersMain(
-    navController: NavController,
-    viewModel: MonstersViewModel = viewModel(),
-    loreViewModel: LoreViewModel = viewModel()
+    navController: NavController ,
+    viewModel: MonstersViewModel = viewModel() ,
+    glowingBackgroundViewModel: GlowingBackgroundViewModel = viewModel()
 ) {
-    val uiState by loreViewModel.uiState.collectAsState()
+    val uiState by glowingBackgroundViewModel.uiState.collectAsState()
     Box {
         Column (
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -58,7 +59,7 @@ fun MonstersMain(
                     brush = Brush.radialGradient(
                         colors = listOf(Color.Red , Color.Blue) ,
                         center = Offset(1080f , 1920f) , // center of the gradient
-                        radius = 1500f + uiState.value // radius of the gradient
+                        radius = 2000f + uiState.value , // radius of the gradient
                     )
                 )
         ) {
@@ -77,6 +78,9 @@ fun MonstersMain(
             ) {
                 items(viewModel.monsters) {monster ->
                     ShowMonster(monster = monster)
+                }
+                item {
+                    Spacer(modifier = Modifier.size(30.dp))
                 }
             }
         }
@@ -123,9 +127,9 @@ fun ShowMonster(monster: Monster) {
         Text(
             textAlign = TextAlign.Center,
             text = monster.name,
-            style = typography.bodyLarge,
-            fontWeight = FontWeight.Bold,
-            fontSize = 25.sp
+            style = typography.bodySmall,
+            //fontWeight = FontWeight.Bold,
+            fontSize = 20.sp
         )
     }
     if (showMonsterDialog) {
@@ -142,7 +146,7 @@ private fun MonsterDialog(
     if (showDialog) {
         AlertDialog(
             onDismissRequest = {
-
+                               showDialog = false
             },
             title = { Text(text = monster.name,
                 fontWeight = FontWeight.Bold) },

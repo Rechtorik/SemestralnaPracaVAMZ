@@ -14,7 +14,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ButtonElevation
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -35,18 +34,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.semestralnapracadoom.R
-import com.example.semestralnapracadoom.ui.monsters.Monster
-import com.example.semestralnapracadoom.ui.quiz.QuizViewModel
+import com.example.semestralnapracadoom.ui.glowingBackground.GlowingBackgroundViewModel
 
 @Composable
 fun LoreScreen(
     navController: NavController,
-    viewModel: LoreViewModel = viewModel()
+    viewModel: GlowingBackgroundViewModel = viewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -127,7 +124,7 @@ fun LoreScreen(
                 item {
                     Button(
                         elevation = ButtonDefaults.buttonElevation(8.dp),
-                        onClick = { showEP3Dialog = true },
+                        onClick = { showEP1Dialog = true },
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(30.dp , 5.dp)
@@ -227,11 +224,9 @@ private fun EpisodeDialog(
     eigth: String,
     onClose: () -> Unit
 ) {
-    var showDialog by remember { mutableStateOf(true) }
-    if (showDialog) {
         AlertDialog(
             onDismissRequest = {
-                showDialog = false
+                onClose()
             },
             title = { Text(text = nameOfEpisode,
                 fontWeight = FontWeight.Bold) },
@@ -247,13 +242,11 @@ private fun EpisodeDialog(
             confirmButton = {
                 TextButton(onClick = {
                     onClose()
-                    showDialog = false
                 }) {
                     Text(text = "OK")
                 }
             }
         )
-    }
 }
 
 

@@ -1,8 +1,7 @@
-package com.example.semestralnapracadoom.ui.lore
+package com.example.semestralnapracadoom.ui.glowingBackground
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.semestralnapracadoom.ui.quiz.QuizUiState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,12 +10,12 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
-class LoreViewModel : ViewModel() {
+class GlowingBackgroundViewModel : ViewModel() {
 
     private val _uiState = MutableStateFlow(
-        LoreUiState()
+        GlowingBackgroundUiState()
     )
-    val uiState: StateFlow<LoreUiState> = _uiState.asStateFlow()
+    val uiState: StateFlow<GlowingBackgroundUiState> = _uiState.asStateFlow()
 
     init {
         glowingBackground()

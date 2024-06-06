@@ -1,6 +1,7 @@
 package com.example.semestralnapracadoom.ui.mainMenu
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,8 +13,13 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -21,15 +27,24 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.semestralnapracadoom.R
+import com.example.semestralnapracadoom.ui.glowingBackground.GlowingBackgroundViewModel
 
 @Composable
 fun MainMenu(
     navController: NavController,
-    mmvm: MainMenuViewModel = viewModel()
-) {
+    glowingBackgroundViewModel: GlowingBackgroundViewModel = viewModel()
+    ) {
+    val uiState by glowingBackgroundViewModel.uiState.collectAsState()
     Column (
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .background(
+                brush = Brush.radialGradient(
+                    colors = listOf(Color.Red , Color.Blue) ,
+                    center = Offset(1080f , 1920f) , // center of the gradient
+                    radius = 2200f + uiState.value // radius of the gradient
+                )
+            ),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -105,7 +120,7 @@ fun MainMenu(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(20.dp , 0.dp) ,
-                    onClick = { /*TODO*/ }
+                    onClick = { navController.navigate("interesting_facts") }
                 ) {
                     Text("INTERESTING FACTS")
                 }
@@ -130,5 +145,5 @@ fun MainMenu(
     showSystemUi = true)
 @Composable
 fun MainMenuPreview() {
-    MainMenu(mmvm = MainMenuViewModel(), navController = rememberNavController())
+    MainMenu(navController = rememberNavController())
 }
