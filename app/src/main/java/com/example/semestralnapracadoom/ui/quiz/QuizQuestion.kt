@@ -5,5 +5,5 @@ data class QuizQuestion (
     val firstOption: String,
     val secondOption: String,
     val rightOption: String,
-    val rightPosition: Int
+    val rightPosition: Int = 2
 )

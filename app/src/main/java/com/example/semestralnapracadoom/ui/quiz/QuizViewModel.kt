@@ -13,43 +13,98 @@ class QuizViewModel : ViewModel() {
             "Who was lead programmer in ID Software?",
             "John Romero",
             "Gabe Newell",
-            "John Carmack",
-            2
+            "John Carmack"
         ),
         QuizQuestion(
-            "How is this game called?",
-            "Half Life",
-            "Alien",
-            "Doom",
-            2
+            "What is first title that id software developed?",
+            "DOOM",
+            "Quake",
+            "Commander Keen"
         ),
         QuizQuestion(
-            "Why was this game revolutionary?",
-            "It was boring",
-            "Nobody liked it",
-            "It was fun",
-            2
+            "When was this game released?",
+            "1995",
+            "1994",
+            "1993"
+        ),
+        QuizQuestion(
+            "How many HP has Lost Soul (enemy)?",
+            "90",
+            "110",
+            "100"
+        ),
+        QuizQuestion(
+            "How many demons is in DOOM?",
+            "8",
+            "7",
+            "9"
+        ),
+        QuizQuestion(
+            "What is world record in first level of DOOM?",
+            "3,5 seconds",
+            "12,3 seconds",
+            "7,8 seconds"
+        ),
+        QuizQuestion(
+            "Who made levels for DOOM?",
+            "Adrian Carmack",
+            "Bishop White",
+            "John Romero"
+        ),
+        QuizQuestion(
+            "What is the most common enemy?",
+            "Pinky",
+            "Shotgun Guy",
+            "Imp"
+        ),
+        QuizQuestion(
+            "Who made levels for DOOM?",
+            "Adrian Carmack",
+            "Bishop White",
+            "John Romero"
+        ),
+        QuizQuestion(
+            "How many games id software developed?",
+            "2",
+            "6",
+            "5"
+        ),
+        QuizQuestion(
+            "What gun was in DOOM II and not in DOOM I?",
+            "BFG 9000",
+            "Plasma Rifle",
+            "Super Shotgun"
+        ),
+        QuizQuestion(
+            "What is name of corporation in DOOM?",
+            "Mars mining station",
+            "Wayland Yutani",
+            "Union Aerospace Corporation"
+        ),
+        QuizQuestion(
+            "Which famous musician composed the music for the original DOOM game?",
+            "Slayer",
+            "Mick Gordon",
+            "Bobby Prince"
         )
     )
+
     private val _uiState = MutableStateFlow(
         QuizUiState(
-            curQuestion = GetRandomQuizQuestion()
+            curQuestion = questions[Random.nextInt(0, questions.size)]
         )
     )
     val uiState: StateFlow<QuizUiState> = _uiState.asStateFlow()
 
-    fun GetRandomQuizQuestion(prevoiusQuestion: QuizQuestion = questions[0]): QuizQuestion {
-        var previousQuestionPosition = 0
-        questions.forEachIndexed { index, question ->
-            if (question.question == prevoiusQuestion.question)
-                previousQuestionPosition = index
-        }
-        //mám pozíciu predošlej otázky
 
+
+    fun GetRandomQuizQuestion(): QuizQuestion {
         var position = Random.nextInt(0, questions.size)
-        while (previousQuestionPosition == position)
+        while (_uiState.value.usedQuestions.contains(position)) {
             position = Random.nextInt(0, questions.size)
-        //mám novú pozícíu
+        }
+        _uiState.value.usedQuestions.add(position)
+
         val questionToRandomize = questions[position]
 
         var randomAnswers = listOf(
@@ -99,7 +154,7 @@ class QuizViewModel : ViewModel() {
         _uiState.update {currentState ->
             currentState.copy(
                 numberOfQuestions = currentState.numberOfQuestions.inc(),
-                curQuestion = GetRandomQuizQuestion(currentState.curQuestion)
+                curQuestion = GetRandomQuizQuestion()
             )
         }
     }

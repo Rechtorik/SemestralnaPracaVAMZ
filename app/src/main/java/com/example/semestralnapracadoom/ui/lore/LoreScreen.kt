@@ -34,9 +34,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.semestralnapracadoom.NavRoute
 import com.example.semestralnapracadoom.R
 import com.example.semestralnapracadoom.ui.glowingBackground.GlowingBackgroundViewModel
 
@@ -70,7 +72,9 @@ fun LoreScreen(
                 text = "Lore Of DOOM",
                 fontWeight = FontWeight.Bold,
                 style = typography.titleLarge,
-                modifier = Modifier.padding(30.dp)
+                modifier = Modifier.padding(15.dp),
+                color = Color.White,
+                fontSize = 30.sp
             )
             LazyColumn(
                 Modifier.weight(1f),
@@ -203,7 +207,7 @@ fun LoreScreen(
         }
         Button(
             elevation = ButtonDefaults.buttonElevation(8.dp),
-            onClick = { navController.navigate("main_menu") },
+            onClick = { navController.navigate(NavRoute.MAIN_MENU.route) },
             modifier = Modifier.align(Alignment.BottomCenter)
         ) {
             Text(text = "Back!")

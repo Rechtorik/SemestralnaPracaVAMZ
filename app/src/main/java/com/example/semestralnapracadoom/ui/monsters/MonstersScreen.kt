@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.semestralnapracadoom.NavRoute
 import com.example.semestralnapracadoom.ui.glowingBackground.GlowingBackgroundViewModel
 import kotlinx.coroutines.delay
 
@@ -65,10 +66,11 @@ fun MonstersMain(
         ) {
             Text(
                 text = "Monsters" ,
+                fontWeight = FontWeight.Bold,
                 style = typography.titleLarge,
-                fontSize = 30.sp,
-                modifier = Modifier
-                    .padding(20.dp)
+                modifier = Modifier.padding(15.dp),
+                color = Color.White,
+                fontSize = 30.sp
             )
             LazyColumn (
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -87,7 +89,7 @@ fun MonstersMain(
         Button(
             elevation = ButtonDefaults.buttonElevation(8.dp),
             modifier = Modifier.align(Alignment.BottomCenter),
-            onClick = { navController.navigate("main_menu") },
+            onClick = { navController.navigate(NavRoute.MAIN_MENU.route) },
         ) {
             Text(
                 text = "Back"
@@ -129,7 +131,8 @@ fun ShowMonster(monster: Monster) {
             text = monster.name,
             style = typography.bodySmall,
             //fontWeight = FontWeight.Bold,
-            fontSize = 20.sp
+            fontSize = 20.sp,
+            color = Color.White
         )
     }
     if (showMonsterDialog) {

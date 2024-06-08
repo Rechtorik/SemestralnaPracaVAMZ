@@ -1,10 +1,13 @@
 package com.example.semestralnapracadoom.ui.quiz
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.AlertDialog
@@ -16,11 +19,14 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,10 +35,26 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.semestralnapracadoom.NavRoute
 import com.example.semestralnapracadoom.ui.glowingBackground.GlowingBackgroundViewModel
+
 
 @Composable
 fun QuizScreen(
+    navController: NavController
+) {
+    val config = LocalConfiguration.current
+    val mode = remember { mutableStateOf(config.orientation) }
+    if (mode.value == Configuration.ORIENTATION_PORTRAIT) {
+        QuizScreenPortrait(navController = navController)
+    } else {
+        QuizScreenLandscape(navController = navController)
+    }
+}
+
+
+@Composable
+fun QuizScreenPortrait(
     navController: NavController ,
     viewModel: QuizViewModel = viewModel() ,
     glowingBackgroundViewModel: GlowingBackgroundViewModel = viewModel()
@@ -73,12 +95,13 @@ fun QuizScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                modifier = Modifier.padding(30.dp),
-                textAlign = TextAlign.Center,
                 text = "Quiz" ,
                 style = typography.titleLarge ,
                 fontWeight = FontWeight.Bold,
-                fontSize = 60.sp
+                fontSize = 60.sp,
+                color = Color.White,
+                modifier = Modifier.padding(30.dp),
+                textAlign = TextAlign.Center
             )
             Text(
                 color = Color.White,
@@ -95,9 +118,87 @@ fun QuizScreen(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(30.dp),
-            onClick = { navController.navigate("main_menu") }
+            onClick = { navController.navigate(NavRoute.MAIN_MENU.route) }
         ) {
             Text(text = "Back")
+        }
+    }
+}
+
+
+
+@Composable
+fun QuizScreenLandscape(
+    navController: NavController ,
+    viewModel: QuizViewModel = viewModel() ,
+    glowingBackgroundViewModel: GlowingBackgroundViewModel = viewModel()
+) {
+    val quizUiState by viewModel.uiState.collectAsState()
+    val uiState by glowingBackgroundViewModel.uiState.collectAsState()
+
+    Box (
+        modifier = Modifier
+            .background(
+                brush = Brush.radialGradient(
+                    colors = listOf(Color.Red , Color.Blue) ,
+                    center = Offset(1920f , 1080f) , // center of the gradient
+                    radius = 1500f + uiState.value // radius of the gradient
+                )),
+        contentAlignment = Alignment.Center
+    ) {
+        Row (
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(40.dp, 0.dp)
+        ) {
+            Column (
+                modifier = Modifier
+                    .padding(20.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Quiz" ,
+                    style = typography.titleLarge ,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 60.sp,
+                    color = Color.White,
+                    modifier = Modifier.padding(30.dp),
+                    textAlign = TextAlign.Center
+                )
+                Text(
+                    color = Color.White,
+                    textAlign = TextAlign.Center,
+                    text = "Score: ${quizUiState.score} \nQuestion ${quizUiState.numberOfQuestions}/10" ,
+                    style = typography.titleLarge ,
+                    fontWeight = FontWeight.Light,
+                    fontSize = 30.sp,
+                    modifier = Modifier.background(Color.White.copy(alpha = 0.3f))
+                )
+                Button(
+                    elevation = ButtonDefaults.buttonElevation(8.dp),
+                    modifier = Modifier
+                        .padding(30.dp),
+                    onClick = { navController.navigate(NavRoute.MAIN_MENU.route) }
+                ) {
+                    Text(text = "Back")
+                }
+            }
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally ,
+                verticalArrangement = Arrangement.Center ,
+                modifier = Modifier
+                    .fillMaxSize()
+            ) {
+                ShowQuestion(viewModel = viewModel , quizUiState = quizUiState)
+                if (quizUiState.isGameOver) {
+                    FinalScoreDialog(
+                        navController = navController ,
+                        viewModel = viewModel ,
+                        quizUiState = quizUiState
+                    )
+                }
+            }
         }
     }
 }
@@ -110,7 +211,8 @@ fun ShowQuestion(
 ) {
     Column (
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier.padding(0.dp, 20.dp)
     ) {
         Text(
             color = Color.White,
@@ -118,7 +220,7 @@ fun ShowQuestion(
             style = typography.displaySmall,
             fontSize = 30.sp,
             modifier = Modifier
-                .padding(40.dp)
+                .padding(40.dp, 20.dp, 40.dp, 40.dp)
                 .background(Color.White.copy(alpha = 0.2f)),
             textAlign = TextAlign.Justify
         )
@@ -176,14 +278,14 @@ private fun FinalScoreDialog(
     ) {
     AlertDialog(
         onDismissRequest = {
-            navController.navigate("main_menu")
+            navController.navigate(NavRoute.MAIN_MENU.route)
         },
         title = { Text(text = "End of Quiz") },
         text = { Text(text = "Your score: ${quizUiState.score}/10") },
         dismissButton = {
             TextButton(
                 onClick = {
-                    navController.navigate("main_menu")
+                    navController.navigate(NavRoute.MAIN_MENU.route)
                 }
             ) {
                 Text(text = "Main Menu")
@@ -211,8 +313,7 @@ private fun FinalScoreDialog(
 )
 @Composable
 fun QuizScreenPreview() {
-    QuizScreen(
-        navController = rememberNavController(),
-        viewModel = viewModel()
+    QuizScreenPortrait(
+        navController = rememberNavController()
     )
 }
