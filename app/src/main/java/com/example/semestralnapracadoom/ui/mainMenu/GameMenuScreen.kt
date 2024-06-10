@@ -3,6 +3,7 @@ package com.example.semestralnapracadoom.ui.mainMenu
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -55,13 +56,20 @@ fun MainMenuScreenPortrait (
     navController: NavController,
     glowingBackgroundViewModel: GlowingBackgroundViewModel = viewModel()
     ) {
+    // BackGround Color Theme
+    var ColorBG1 = Color.Red
+    var ColorBG2 = Color.Blue
+    if (isSystemInDarkTheme()) {
+        ColorBG1 = Color(0xFF562d7d)
+        ColorBG2 = Color(0xFF000000)
+    }
     val uiState by glowingBackgroundViewModel.uiState.collectAsState()
     Column (
         modifier = Modifier
             .fillMaxSize()
             .background(
                 brush = Brush.radialGradient(
-                    colors = listOf(Color.Red , Color.Blue) ,
+                    colors = listOf(ColorBG1, ColorBG2) ,
                     center = Offset(1080f , 1920f) , // center of the gradient
                     radius = 2200f + uiState.value // radius of the gradient
                 )
@@ -85,7 +93,7 @@ fun MainMenuScreenPortrait (
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(20.dp , 0.dp) ,
-                onClick = { /*TODO*/ }
+                onClick = { navController.navigate(NavRoute.MY_PLAY.route) }
             ) {
                 Text("MY PLAY")
             }
@@ -143,13 +151,20 @@ fun MainMenuScreenLandscape(
     navController: NavController,
     glowingBackgroundViewModel: GlowingBackgroundViewModel = viewModel()
 ) {
+    // BackGround Color Theme
+    var ColorBG1 = Color.Red
+    var ColorBG2 = Color.Blue
+    if (isSystemInDarkTheme()) {
+        ColorBG1 = Color(0xFF562d7d)
+        ColorBG2 = Color(0xFF000000)
+    }
     val uiState by glowingBackgroundViewModel.uiState.collectAsState()
     Column (
         modifier = Modifier
             .fillMaxSize()
             .background(
                 brush = Brush.radialGradient(
-                    colors = listOf(Color.Red , Color.Blue) ,
+                    colors = listOf(ColorBG1, ColorBG2) ,
                     center = Offset(1920f , 1080f) , // center of the gradient
                     radius = 2200f + uiState.value // radius of the gradient
                 )
@@ -179,7 +194,7 @@ fun MainMenuScreenLandscape(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(20.dp , 0.dp) ,
-                    onClick = { /*TODO*/ }
+                    onClick = { navController.navigate(NavRoute.MY_PLAY.route) }
                 ) {
                     Text("MY PLAY")
                 }

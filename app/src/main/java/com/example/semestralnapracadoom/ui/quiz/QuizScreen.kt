@@ -2,13 +2,16 @@ package com.example.semestralnapracadoom.ui.quiz
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -59,6 +62,13 @@ fun QuizScreenPortrait(
     viewModel: QuizViewModel = viewModel() ,
     glowingBackgroundViewModel: GlowingBackgroundViewModel = viewModel()
 ) {
+    // BackGround Color Theme
+    var ColorBG1 = Color.Red
+    var ColorBG2 = Color.Blue
+    if (isSystemInDarkTheme()) {
+        ColorBG1 = Color(0xFF562d7d)
+        ColorBG2 = Color(0xFF000000)
+    }
     val quizUiState by viewModel.uiState.collectAsState()
     val uiState by glowingBackgroundViewModel.uiState.collectAsState()
 
@@ -66,7 +76,7 @@ fun QuizScreenPortrait(
         modifier = Modifier
         .background(
             brush = Brush.radialGradient(
-                colors = listOf(Color.Red , Color.Blue) ,
+                colors = listOf(ColorBG1, ColorBG2) ,
                 center = Offset(1080f , 1920f) , // center of the gradient
                 radius = 1500f + uiState.value // radius of the gradient
             )),
@@ -78,6 +88,7 @@ fun QuizScreenPortrait(
             modifier = Modifier
                 .fillMaxSize()
         ) {
+            Spacer(modifier = Modifier.size(50 .dp))
             ShowQuestion(viewModel = viewModel , quizUiState = quizUiState)
             if (quizUiState.isGameOver) {
                 FinalScoreDialog(
@@ -117,8 +128,9 @@ fun QuizScreenPortrait(
             elevation = ButtonDefaults.buttonElevation(8.dp),
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(30.dp),
-            onClick = { navController.navigate(NavRoute.MAIN_MENU.route) }
+                .padding(80.dp),
+            onClick = { navController.popBackStack()
+            }
         ) {
             Text(text = "Back")
         }
@@ -133,6 +145,13 @@ fun QuizScreenLandscape(
     viewModel: QuizViewModel = viewModel() ,
     glowingBackgroundViewModel: GlowingBackgroundViewModel = viewModel()
 ) {
+    // BackGround Color Theme
+    var ColorBG1 = Color.Red
+    var ColorBG2 = Color.Blue
+    if (isSystemInDarkTheme()) {
+        ColorBG1 = Color(0xFF562d7d)
+        ColorBG2 = Color(0xFF000000)
+    }
     val quizUiState by viewModel.uiState.collectAsState()
     val uiState by glowingBackgroundViewModel.uiState.collectAsState()
 
@@ -140,7 +159,7 @@ fun QuizScreenLandscape(
         modifier = Modifier
             .background(
                 brush = Brush.radialGradient(
-                    colors = listOf(Color.Red , Color.Blue) ,
+                    colors = listOf(ColorBG1, ColorBG2) ,
                     center = Offset(1920f , 1080f) , // center of the gradient
                     radius = 1500f + uiState.value // radius of the gradient
                 )),
@@ -149,7 +168,7 @@ fun QuizScreenLandscape(
         Row (
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(40.dp, 0.dp)
+                .padding(40.dp , 0.dp)
         ) {
             Column (
                 modifier = Modifier
@@ -179,7 +198,7 @@ fun QuizScreenLandscape(
                     elevation = ButtonDefaults.buttonElevation(8.dp),
                     modifier = Modifier
                         .padding(30.dp),
-                    onClick = { navController.navigate(NavRoute.MAIN_MENU.route) }
+                    onClick = { navController.popBackStack() }
                 ) {
                     Text(text = "Back")
                 }
@@ -220,11 +239,12 @@ fun ShowQuestion(
             style = typography.displaySmall,
             fontSize = 30.sp,
             modifier = Modifier
-                .padding(40.dp, 20.dp, 40.dp, 40.dp)
+                .padding(40.dp , 20.dp , 40.dp , 40.dp)
                 .background(Color.White.copy(alpha = 0.2f)),
             textAlign = TextAlign.Justify
         )
         Button(
+            elevation = ButtonDefaults.buttonElevation(8.dp),
             onClick = {
                 if (quizUiState.curQuestion.rightPosition == 0) {
                     viewModel.RightAnswer()
@@ -239,6 +259,7 @@ fun ShowQuestion(
             )
         }
         Button(
+            elevation = ButtonDefaults.buttonElevation(8.dp),
             onClick = {
                 if (quizUiState.curQuestion.rightPosition == 1) {
                     viewModel.RightAnswer()
@@ -253,6 +274,7 @@ fun ShowQuestion(
             )
         }
         Button(
+            elevation = ButtonDefaults.buttonElevation(8.dp),
             onClick = {
                 if (quizUiState.curQuestion.rightPosition == 2) {
                     viewModel.RightAnswer()
@@ -278,14 +300,14 @@ private fun FinalScoreDialog(
     ) {
     AlertDialog(
         onDismissRequest = {
-            navController.navigate(NavRoute.MAIN_MENU.route)
+            navController.popBackStack()
         },
         title = { Text(text = "End of Quiz") },
         text = { Text(text = "Your score: ${quizUiState.score}/10") },
         dismissButton = {
             TextButton(
                 onClick = {
-                    navController.navigate(NavRoute.MAIN_MENU.route)
+                    navController.popBackStack()
                 }
             ) {
                 Text(text = "Main Menu")

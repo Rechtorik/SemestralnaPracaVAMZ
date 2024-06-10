@@ -1,7 +1,9 @@
 package com.example.semestralnapracadoom.ui.interestingFacts
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,16 +13,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -39,16 +45,34 @@ fun InterestingFactsScreen(
     navController: NavController,
     glowingBackgroundViewModel: GlowingBackgroundViewModel = viewModel()
 ) {
+    // BackGround Color Theme
+    var ColorBG1 = Color.Red
+    var ColorBG2 = Color.Blue
+    if (isSystemInDarkTheme()) {
+        ColorBG1 = Color(0xFF562d7d)
+        ColorBG2 = Color(0xFF000000)
+    }
     val uiState by glowingBackgroundViewModel.uiState.collectAsState()
+    val config = LocalConfiguration.current
+    val mode = remember { mutableStateOf(config.orientation) }
+    var buttonPadding = 30.dp
+    var titlePadding = 15.dp
+    if (mode.value == Configuration.ORIENTATION_PORTRAIT) {
+        buttonPadding = 80.dp
+        titlePadding = 50.dp
+    }
+
     Box {
         Column (
             modifier = Modifier
                 .fillMaxSize()
                 .background(
                     brush = Brush.radialGradient(
-                        colors = listOf(Color.Red , Color.Blue) ,
+                        colors = listOf(
+                            ColorBG1, ColorBG2
+                        ) ,  // Color(0xFF562d7d) , Color(0xFF000000)
                         center = Offset(1080f , 1920f) , // center of the gradient
-                        radius = 2200f + uiState.value // radius of the gradient
+                        radius = 1500f + uiState.value // radius of the gradient
                     )
                 ),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -58,7 +82,7 @@ fun InterestingFactsScreen(
                 text = "Interesting Facts",
                 fontWeight = FontWeight.Bold,
                 style = typography.titleLarge,
-                modifier = Modifier.padding(15.dp),
+                modifier = Modifier.padding(15.dp, titlePadding, 15.dp, 15.dp),
                 color = Color.White,
                 fontSize = 30.sp
             )
@@ -168,15 +192,18 @@ fun InterestingFactsScreen(
                     )
                 }
                 item {
-                    Spacer(modifier = Modifier.size(30.dp))
+                    Spacer(modifier = Modifier.size(130.dp))
                 }
             }
         }
         Button(
-            onClick = { navController.navigate(NavRoute.MAIN_MENU.route) },
-            modifier = Modifier.align(Alignment.BottomCenter)
+            elevation = ButtonDefaults.buttonElevation(8.dp),
+            onClick = { navController.popBackStack() },
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(buttonPadding)
         ) {
-            Text(text = "Menu")
+            Text(text = "Back!")
         }
     }
 }
@@ -189,5 +216,5 @@ fun InterestingFactsScreen(
 )
 @Composable
 fun InterestingFactsPreview() {
-    InterestingFactsScreen(navController = rememberNavController(), glowingBackgroundViewModel = viewModel())
+    InterestingFactsScreen(navController = rememberNavController())
 }

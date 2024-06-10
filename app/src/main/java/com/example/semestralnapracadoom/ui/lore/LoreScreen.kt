@@ -1,7 +1,9 @@
 package com.example.semestralnapracadoom.ui.lore
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -41,13 +44,31 @@ import androidx.navigation.compose.rememberNavController
 import com.example.semestralnapracadoom.NavRoute
 import com.example.semestralnapracadoom.R
 import com.example.semestralnapracadoom.ui.glowingBackground.GlowingBackgroundViewModel
+import com.example.semestralnapracadoom.ui.quiz.QuizScreenLandscape
+import com.example.semestralnapracadoom.ui.quiz.QuizScreenPortrait
 
 @Composable
 fun LoreScreen(
     navController: NavController,
     viewModel: GlowingBackgroundViewModel = viewModel()
 ) {
+    // BackGround Color Theme
+    var ColorBG1 = Color.Red
+    var ColorBG2 = Color.Blue
+    if (isSystemInDarkTheme()) {
+        ColorBG1 = Color(0xFF562d7d)
+        ColorBG2 = Color(0xFF000000)
+    }
     val uiState by viewModel.uiState.collectAsState()
+
+    val config = LocalConfiguration.current
+    val mode = remember { mutableStateOf(config.orientation) }
+    var buttonPadding = 30.dp
+    var titlePadding = 15.dp
+    if (mode.value == Configuration.ORIENTATION_PORTRAIT) {
+        buttonPadding = 80.dp
+        titlePadding = 50.dp
+    }
 
     var showEP1Dialog by remember { mutableStateOf(false) }
     var showEP2Dialog by remember { mutableStateOf(false) }
@@ -57,7 +78,7 @@ fun LoreScreen(
             .fillMaxSize()
             .background(
                 brush = Brush.radialGradient(
-                    colors = listOf(Color.Red , Color.Blue) ,
+                    colors = listOf(ColorBG1, ColorBG2),  // Color(0xFF562d7d) , Color(0xFF000000)
                     center = Offset(1080f , 1920f) , // center of the gradient
                     radius = 1500f + uiState.value // radius of the gradient
                 )
@@ -72,7 +93,7 @@ fun LoreScreen(
                 text = "Lore Of DOOM",
                 fontWeight = FontWeight.Bold,
                 style = typography.titleLarge,
-                modifier = Modifier.padding(15.dp),
+                modifier = Modifier.padding(15.dp, titlePadding, 15.dp, 15.dp),
                 color = Color.White,
                 fontSize = 30.sp
             )
@@ -201,14 +222,16 @@ fun LoreScreen(
                     }
                 }
                 item {
-                    Spacer(modifier = Modifier.size(50.dp))
+                    Spacer(modifier = Modifier.size(130.dp))
                 }
             }
         }
         Button(
             elevation = ButtonDefaults.buttonElevation(8.dp),
-            onClick = { navController.navigate(NavRoute.MAIN_MENU.route) },
-            modifier = Modifier.align(Alignment.BottomCenter)
+            onClick = { navController.popBackStack() },
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(buttonPadding)
         ) {
             Text(text = "Back!")
         }

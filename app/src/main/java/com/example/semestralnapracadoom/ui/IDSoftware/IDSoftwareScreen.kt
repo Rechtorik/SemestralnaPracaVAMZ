@@ -1,7 +1,9 @@
 package com.example.semestralnapracadoom.ui.IDSoftware
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,6 +21,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -26,6 +30,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -44,6 +49,23 @@ fun IDSoftwareScreen(
     navController: NavController,
     glowingBackgroundViewModel: GlowingBackgroundViewModel = viewModel()
 ) {
+    // BackGround Color Theme
+    var ColorBG1 = Color.Red
+    var ColorBG2 = Color.Blue
+    if (isSystemInDarkTheme()) {
+        ColorBG1 = Color(0xFF562d7d)
+        ColorBG2 = Color(0xFF000000)
+    }
+
+    val config = LocalConfiguration.current
+    val mode = remember { mutableStateOf(config.orientation) }
+    var buttonPadding = 30.dp
+    var titlePadding = 15.dp
+    if (mode.value == Configuration.ORIENTATION_PORTRAIT) {
+        buttonPadding = 80.dp
+        titlePadding = 50.dp
+    }
+
     val uiState by glowingBackgroundViewModel.uiState.collectAsState()
     Box {
         Column (
@@ -51,7 +73,7 @@ fun IDSoftwareScreen(
                 .fillMaxSize()
                 .background(
                     brush = Brush.radialGradient(
-                        colors = listOf(Color.Red , Color.Blue) ,
+                        colors = listOf(ColorBG1 , ColorBG2) ,
                         center = Offset(1080f , 1920f) , // center of the gradient
                         radius = 2200f + uiState.value // radius of the gradient
                     )
@@ -63,7 +85,7 @@ fun IDSoftwareScreen(
                 text = "ID Software",
                 fontWeight = FontWeight.Bold,
                 style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(15.dp),
+                modifier = Modifier.padding(15.dp, titlePadding, 15.dp, 15.dp),
                 color = Color.White,
                 fontSize = 30.sp
             )
@@ -108,7 +130,7 @@ fun IDSoftwareScreen(
                     }
                 }
                 item {
-                    Spacer(modifier = Modifier.size(80.dp))
+                    Spacer(modifier = Modifier.size(110.dp))
                 }
             }
         }
@@ -116,7 +138,7 @@ fun IDSoftwareScreen(
             elevation = ButtonDefaults.buttonElevation(8.dp),
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(30.dp),
+                .padding(buttonPadding),
             onClick = { navController.navigate(NavRoute.MAIN_MENU.route) }
         ) {
             Text(text = "Back")

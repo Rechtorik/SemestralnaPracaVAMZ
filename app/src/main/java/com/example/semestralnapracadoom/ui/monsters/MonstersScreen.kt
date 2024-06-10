@@ -1,7 +1,9 @@
 package com.example.semestralnapracadoom.ui.monsters
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -49,7 +52,24 @@ fun MonstersMain(
     viewModel: MonstersViewModel = viewModel() ,
     glowingBackgroundViewModel: GlowingBackgroundViewModel = viewModel()
 ) {
+    // BackGround Color Theme
+    var ColorBG1 = Color.Red
+    var ColorBG2 = Color.Blue
+    if (isSystemInDarkTheme()) {
+        ColorBG1 = Color(0xFF562d7d)
+        ColorBG2 = Color(0xFF000000)
+    }
     val uiState by glowingBackgroundViewModel.uiState.collectAsState()
+
+    val config = LocalConfiguration.current
+    val mode = remember { mutableStateOf(config.orientation) }
+    var buttonPadding = 30.dp
+    var titlePadding = 15.dp
+    if (mode.value == Configuration.ORIENTATION_PORTRAIT) {
+        buttonPadding = 80.dp
+        titlePadding = 50.dp
+    }
+
     Box {
         Column (
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -58,9 +78,11 @@ fun MonstersMain(
                 .fillMaxSize()
                 .background(
                     brush = Brush.radialGradient(
-                        colors = listOf(Color.Red , Color.Blue) ,
+                        colors = listOf(
+                            ColorBG1, ColorBG2
+                        ) ,
                         center = Offset(1080f , 1920f) , // center of the gradient
-                        radius = 2000f + uiState.value , // radius of the gradient
+                        radius = 1500f + uiState.value // radius of the gradient
                     )
                 )
         ) {
@@ -68,7 +90,7 @@ fun MonstersMain(
                 text = "Monsters" ,
                 fontWeight = FontWeight.Bold,
                 style = typography.titleLarge,
-                modifier = Modifier.padding(15.dp),
+                modifier = Modifier.padding(15.dp, titlePadding, 15.dp, 15.dp),
                 color = Color.White,
                 fontSize = 30.sp
             )
@@ -82,18 +104,18 @@ fun MonstersMain(
                     ShowMonster(monster = monster)
                 }
                 item {
-                    Spacer(modifier = Modifier.size(30.dp))
+                    Spacer(modifier = Modifier.size(110.dp))
                 }
             }
         }
         Button(
             elevation = ButtonDefaults.buttonElevation(8.dp),
-            modifier = Modifier.align(Alignment.BottomCenter),
-            onClick = { navController.navigate(NavRoute.MAIN_MENU.route) },
+            onClick = { navController.popBackStack() },
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(buttonPadding)
         ) {
-            Text(
-                text = "Back"
-            )
+            Text(text = "Back!")
         }
     }
 }
