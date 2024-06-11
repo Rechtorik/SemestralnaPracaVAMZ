@@ -46,10 +46,10 @@ class QuizViewModel : ViewModel() {
             "7,8 seconds"
         ),
         QuizQuestion(
-            "Who made levels for DOOM?",
-            "Adrian Carmack",
-            "Bishop White",
-            "John Romero"
+            "What is the name of player?",
+            "Duke Nukem",
+            "BJ Blazkowicz",
+            "Doomguy"
         ),
         QuizQuestion(
             "What is the most common enemy?",
@@ -89,9 +89,11 @@ class QuizViewModel : ViewModel() {
         )
     )
 
+    val firstQuestionIndex = Random.nextInt(0, questions.size)
     private val _uiState = MutableStateFlow(
         QuizUiState(
-            curQuestion = questions[Random.nextInt(0, questions.size)]
+            curQuestion = questions[firstQuestionIndex],
+            usedQuestions = mutableListOf(firstQuestionIndex)
         )
     )
     val uiState: StateFlow<QuizUiState> = _uiState.asStateFlow()
@@ -129,7 +131,16 @@ class QuizViewModel : ViewModel() {
     }
 
     fun Reset() {
-        _uiState.value = QuizUiState(curQuestion = GetRandomQuizQuestion())
+        val firstRandomQuestion = questions[Random.nextInt(0, questions.size)]
+        _uiState.update {currentState ->
+            currentState.copy(
+                score = 0 ,
+                curQuestion =  firstRandomQuestion,
+                numberOfQuestions = 1 ,
+                isGameOver = false ,
+                usedQuestions = mutableListOf(questions.indexOf(firstRandomQuestion))
+            )
+        }
     }
 
 

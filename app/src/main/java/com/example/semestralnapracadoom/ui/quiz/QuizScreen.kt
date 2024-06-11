@@ -30,6 +30,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,7 +39,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.semestralnapracadoom.NavRoute
+import com.example.semestralnapracadoom.R
 import com.example.semestralnapracadoom.ui.glowingBackground.GlowingBackgroundViewModel
 
 
@@ -106,7 +107,7 @@ fun QuizScreenPortrait(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Quiz" ,
+                text = stringResource(id = R.string.quiz_title) ,
                 style = typography.titleLarge ,
                 fontWeight = FontWeight.Bold,
                 fontSize = 60.sp,
@@ -132,7 +133,7 @@ fun QuizScreenPortrait(
             onClick = { navController.popBackStack()
             }
         ) {
-            Text(text = "Back")
+            Text(text = stringResource(id = R.string.BackButton_text))
         }
     }
 }
@@ -177,7 +178,7 @@ fun QuizScreenLandscape(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Quiz" ,
+                    text = stringResource(R.string.quiz_title) ,
                     style = typography.titleLarge ,
                     fontWeight = FontWeight.Bold,
                     fontSize = 60.sp,
@@ -200,7 +201,7 @@ fun QuizScreenLandscape(
                         .padding(30.dp),
                     onClick = { navController.popBackStack() }
                 ) {
-                    Text(text = "Back")
+                    Text(text = stringResource(id = R.string.BackButton_text))
                 }
             }
             Column(
@@ -302,7 +303,7 @@ private fun FinalScoreDialog(
         onDismissRequest = {
             navController.popBackStack()
         },
-        title = { Text(text = "End of Quiz") },
+        title = { Text(text = stringResource(R.string.quiz_endOfQuiz)) },
         text = { Text(text = "Your score: ${quizUiState.score}/10") },
         dismissButton = {
             TextButton(
@@ -310,14 +311,14 @@ private fun FinalScoreDialog(
                     navController.popBackStack()
                 }
             ) {
-                Text(text = "Main Menu")
+                Text(text = stringResource(id = R.string.BackButton_text))
             }
         },
         confirmButton = {
             TextButton(onClick = {
                 viewModel.Reset()
             }) {
-                Text(text = "Play Again")
+                Text(text = stringResource(R.string.quiz_playAgain))
             }
         }
     )

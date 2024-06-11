@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -28,6 +27,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -69,7 +69,7 @@ fun MainMenuScreenPortrait (
             .fillMaxSize()
             .background(
                 brush = Brush.radialGradient(
-                    colors = listOf(ColorBG1, ColorBG2) ,
+                    colors = listOf(ColorBG1 , ColorBG2) ,
                     center = Offset(1080f , 1920f) , // center of the gradient
                     radius = 2200f + uiState.value // radius of the gradient
                 )
@@ -95,7 +95,7 @@ fun MainMenuScreenPortrait (
                     .padding(20.dp , 0.dp) ,
                 onClick = { navController.navigate(NavRoute.MY_PLAY.route) }
             ) {
-                Text("MY PLAY")
+                Text(stringResource(R.string.menu_myPlay))
             }
             Button(
                 elevation = ButtonDefaults.buttonElevation(8.dp),
@@ -104,7 +104,7 @@ fun MainMenuScreenPortrait (
                     .padding(20.dp , 0.dp) ,
                 onClick = { navController.navigate(NavRoute.LORE.route) }
             ) {
-                Text("LORE")
+                Text(stringResource(R.string.menu_lore))
             }
             Button(
                 elevation = ButtonDefaults.buttonElevation(8.dp),
@@ -113,7 +113,7 @@ fun MainMenuScreenPortrait (
                     .padding(20.dp , 0.dp) ,
                 onClick = { navController.navigate(NavRoute.MONSTERS.route) }
             ) {
-                Text("MONSTERS")
+                Text(stringResource(R.string.menu_monsters))
             }
             Button(
                 elevation = ButtonDefaults.buttonElevation(8.dp),
@@ -122,7 +122,7 @@ fun MainMenuScreenPortrait (
                     .padding(20.dp , 0.dp) ,
                 onClick = { navController.navigate(NavRoute.ID_SOFTWARE.route) }
             ) {
-                Text("ID SOFTWARE")
+                Text(stringResource(R.string.menu_idSoftware))
             }
             Button(
                 elevation = ButtonDefaults.buttonElevation(8.dp),
@@ -131,7 +131,7 @@ fun MainMenuScreenPortrait (
                     .padding(20.dp , 0.dp) ,
                 onClick = { navController.navigate(NavRoute.INTERESTING_FACTS.route) }
             ) {
-                Text("INTERESTING FACTS")
+                Text(stringResource(R.string.menu_interestingFacts))
             }
             Button(
                 elevation = ButtonDefaults.buttonElevation(8.dp),
@@ -140,7 +140,7 @@ fun MainMenuScreenPortrait (
                     .padding(20.dp , 0.dp) ,
                 onClick = { navController.navigate(NavRoute.QUIZ.route) }
             ) {
-                Text("QUIZ")
+                Text(stringResource(R.string.menu_quiz))
             }
         }
     }
@@ -164,7 +164,7 @@ fun MainMenuScreenLandscape(
             .fillMaxSize()
             .background(
                 brush = Brush.radialGradient(
-                    colors = listOf(ColorBG1, ColorBG2) ,
+                    colors = listOf(ColorBG1 , ColorBG2) ,
                     center = Offset(1920f , 1080f) , // center of the gradient
                     radius = 2200f + uiState.value // radius of the gradient
                 )
@@ -182,7 +182,7 @@ fun MainMenuScreenLandscape(
         Row (
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(40.dp, 0.dp)
+                .padding(40.dp , 0.dp)
         ) {
             Column (
                 modifier = Modifier

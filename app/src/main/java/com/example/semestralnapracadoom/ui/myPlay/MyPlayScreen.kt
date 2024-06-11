@@ -7,17 +7,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.LinearProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -26,13 +22,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -41,6 +37,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.semestralnapracadoom.NavRoute
+import com.example.semestralnapracadoom.R
 import com.example.semestralnapracadoom.ui.glowingBackground.GlowingBackgroundUiState
 import com.example.semestralnapracadoom.ui.glowingBackground.GlowingBackgroundViewModel
 import kotlin.math.round
@@ -95,7 +92,7 @@ fun MyPlayScreenPortrait(
             .fillMaxSize()
             .background(
                 brush = Brush.radialGradient(
-                    colors = listOf(ColorBG1, ColorBG2) ,
+                    colors = listOf(ColorBG1 , ColorBG2) ,
                     center = Offset(1080f , 1920f) , // center of the gradient
                     radius = 1500f + glowingBackgroundUiState.value // radius of the gradient
                 )
@@ -107,7 +104,7 @@ fun MyPlayScreenPortrait(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "My Play" ,
+                text = stringResource(R.string.myPlay_title) ,
                 style = typography.titleLarge ,
                 fontWeight = FontWeight.Bold,
                 fontSize = 60.sp,
@@ -128,7 +125,7 @@ fun MyPlayScreenPortrait(
                 color = Color.Red
             )
             Text(
-                text = "Currently on: ",
+                text = stringResource(R.string.myPlay_currentlyOn) ,
                 color = Color.White
             )
             Text(
@@ -139,18 +136,19 @@ fun MyPlayScreenPortrait(
                 modifier = Modifier.padding(10.dp)
             )
             Button(
+                elevation = ButtonDefaults.buttonElevation(8.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(60.dp, 5.dp),
+                    .padding(60.dp , 5.dp),
                 onClick = {
                     myPlayUiState.level.note = myPlayUiState.note
                     myPlayViewModel.setNote("")
                     myPlayViewModel.NextLevel()
                 }) {
-                Text(text = "Finish Level!")
+                Text(text = stringResource(R.string.myPlay_finishLevel))
             }
             Text(
-                text = "Notes:",
+                text = stringResource(R.string.myPlay_notes) ,
                 color = Color.White
             )
             TextField(
@@ -164,13 +162,13 @@ fun MyPlayScreenPortrait(
                 elevation = ButtonDefaults.buttonElevation(8.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(60.dp, 5.dp),
+                    .padding(60.dp , 5.dp),
                 onClick = {
                     myPlayUiState.level.note = myPlayUiState.note
                     navController.navigate(NavRoute.MY_PLAY_NOTES.route)
                 }
             ) {
-                Text(text = "All notes")
+                Text(text = stringResource(R.string.myPlay_allNotes))
             }
         }
         Button(
@@ -183,7 +181,7 @@ fun MyPlayScreenPortrait(
                 .align(Alignment.BottomCenter)
                 .padding(80.dp)
         ) {
-            Text(text = "Back")
+            Text(text = stringResource(id = R.string.BackButton_text))
         }
     }
 }
@@ -207,7 +205,7 @@ fun MyPlayScreenLandscape(
             .fillMaxSize()
             .background(
                 brush = Brush.radialGradient(
-                    colors = listOf(ColorBG1, ColorBG2) ,
+                    colors = listOf(ColorBG1 , ColorBG2) ,
                     center = Offset(1920f , 1080f) , // center of the gradient
                     radius = 1500f + glowingBackgroundUiState.value // radius of the gradient
                 )
@@ -222,7 +220,7 @@ fun MyPlayScreenLandscape(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "My Play" ,
+                    text = stringResource(id = R.string.myPlay_title) ,
                     style = typography.titleLarge ,
                     fontWeight = FontWeight.Bold,
                     fontSize = 60.sp,
@@ -243,7 +241,7 @@ fun MyPlayScreenLandscape(
                     color = Color.Red
                 )
                 Text(
-                    text = "Currently on: ",
+                    text = stringResource(id = R.string.myPlay_currentlyOn),
                     color = Color.White
                 )
                 Text(
@@ -262,7 +260,7 @@ fun MyPlayScreenLandscape(
                     modifier = Modifier
                         .padding(30.dp)
                 ) {
-                    Text(text = "Back")
+                    Text(text = stringResource(id = R.string.BackButton_text))
                 }
             }
             Column (
@@ -273,7 +271,7 @@ fun MyPlayScreenLandscape(
             ) {
                 Text(
                     modifier = Modifier.padding(20.dp, 50.dp, 20.dp, 20.dp),
-                    text = "Notes:",
+                    text = stringResource(id = R.string.myPlay_notes),
                     color = Color.White
                 )
                 TextField(
@@ -299,9 +297,10 @@ fun MyPlayScreenLandscape(
                             navController.navigate(NavRoute.MY_PLAY_NOTES.route)
                         }
                     ) {
-                        Text(text = "All notes")
+                        Text(text = stringResource(id = R.string.myPlay_allNotes))
                     }
                     Button(
+                        elevation = ButtonDefaults.buttonElevation(8.dp),
                         modifier = Modifier
                             .weight(1f)
                             .fillMaxWidth()
@@ -311,7 +310,7 @@ fun MyPlayScreenLandscape(
                             myPlayViewModel.setNote("")
                         myPlayViewModel.NextLevel()
                     }) {
-                        Text(text = "Finish Level!")
+                        Text(text = stringResource(id = R.string.myPlay_finishLevel))
                     }
                 }
             }

@@ -34,6 +34,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,6 +44,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.semestralnapracadoom.NavRoute
+import com.example.semestralnapracadoom.R
 import com.example.semestralnapracadoom.ui.glowingBackground.GlowingBackgroundViewModel
 import kotlinx.coroutines.delay
 
@@ -79,7 +81,7 @@ fun MonstersMain(
                 .background(
                     brush = Brush.radialGradient(
                         colors = listOf(
-                            ColorBG1, ColorBG2
+                            ColorBG1 , ColorBG2
                         ) ,
                         center = Offset(1080f , 1920f) , // center of the gradient
                         radius = 1500f + uiState.value // radius of the gradient
@@ -87,7 +89,7 @@ fun MonstersMain(
                 )
         ) {
             Text(
-                text = "Monsters" ,
+                text = stringResource(R.string.monsters_title) ,
                 fontWeight = FontWeight.Bold,
                 style = typography.titleLarge,
                 modifier = Modifier.padding(15.dp, titlePadding, 15.dp, 15.dp),
@@ -115,7 +117,7 @@ fun MonstersMain(
                 .align(Alignment.BottomCenter)
                 .padding(buttonPadding)
         ) {
-            Text(text = "Back!")
+            Text(text = stringResource(id = R.string.BackButton_text))
         }
     }
 }
@@ -152,7 +154,6 @@ fun ShowMonster(monster: Monster) {
             textAlign = TextAlign.Center,
             text = monster.name,
             style = typography.bodySmall,
-            //fontWeight = FontWeight.Bold,
             fontSize = 20.sp,
             color = Color.White
         )

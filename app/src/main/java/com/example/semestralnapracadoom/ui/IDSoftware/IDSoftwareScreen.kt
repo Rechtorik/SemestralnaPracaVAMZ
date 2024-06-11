@@ -32,6 +32,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -82,7 +83,7 @@ fun IDSoftwareScreen(
             verticalArrangement = Arrangement.Top
         ) {
             Text(
-                text = "ID Software",
+                text = stringResource(R.string.idSoftware_title) ,
                 fontWeight = FontWeight.Bold,
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.padding(15.dp, titlePadding, 15.dp, 15.dp),
@@ -93,7 +94,10 @@ fun IDSoftwareScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 item {
-                    ShowParagraph(title = "The Beginnings of id Software" , text = "id Software was founded in February 1991 by four key individuals: John Carmack, John Romero, Tom Hall, and Adrian Carmack. The team initially worked at a company called Softdisk, where they created games for the PC and Apple II platforms. However, they had bigger ambitions and wanted to develop their own games independently.")
+                    ShowParagraph(
+                        title = stringResource( R.string.idSoftware_P1_title ) ,
+                        text = stringResource( R.string.idSoftware_P1_body )
+                    )
                 }
                 item {
                     Image(
@@ -104,16 +108,16 @@ fun IDSoftwareScreen(
                     )
                 }
                 item {
-                    ShowParagraph(title = "" , text = "The breakthrough came when John Carmack developed a revolutionary technique for smooth-scrolling graphics on the PC. This technique was showcased in their first game, Commander Keen, which they developed in their spare time while still employed at Softdisk. The game was a huge success, proving that the team had the talent and vision to make it on their own.")
+                    ShowParagraph(title = "" , text = stringResource(R.string.idSoftware_P2_body))
                 }
                 item { 
-                    ShowParagraph(title = "" , text = "Encouraged by the success of Commander Keen, the team left Softdisk and officially founded id Software. They quickly established themselves as pioneers in the gaming industry, creating groundbreaking titles such as Wolfenstein 3D, Doom, and Quake. These games not only set new standards for graphics and gameplay but also laid the foundation for the first-person shooter genre.")
+                    ShowParagraph(title = "" , text = stringResource(R.string.idSoftware_P3_body))
                 }
                 item {
                     Row(
                         modifier = Modifier
                             .padding(25.dp)
-                            .size(250.dp, 150.dp),
+                            .size(250.dp , 150.dp),
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -141,7 +145,7 @@ fun IDSoftwareScreen(
                 .padding(buttonPadding),
             onClick = { navController.navigate(NavRoute.MAIN_MENU.route) }
         ) {
-            Text(text = "Back")
+            Text(text = stringResource(id = R.string.BackButton_text))
         }
     }
 }

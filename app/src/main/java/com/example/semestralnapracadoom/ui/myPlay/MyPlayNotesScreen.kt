@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -28,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -35,8 +35,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.semestralnapracadoom.NavRoute
-import com.example.semestralnapracadoom.ui.glowingBackground.GlowingBackgroundUiState
+import com.example.semestralnapracadoom.R
 import com.example.semestralnapracadoom.ui.glowingBackground.GlowingBackgroundViewModel
 
 @Composable
@@ -63,8 +62,8 @@ fun MyPlayNotesScreen(
             .background(
                 brush = Brush.radialGradient(
                     colors = listOf(
-                        ColorBG1, ColorBG2
-                    ) ,  // Color(0xFF562d7d) , Color(0xFF000000)
+                        ColorBG1 , ColorBG2
+                    ) ,
                     center = Offset(1080f , 1920f) , // center of the gradient
                     radius = 1500f + uiState.value // radius of the gradient
                 )
@@ -74,7 +73,7 @@ fun MyPlayNotesScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "All notes" ,
+                text = stringResource(R.string.myPlayNotes_title) ,
                 style = MaterialTheme.typography.titleLarge ,
                 fontWeight = FontWeight.Bold,
                 fontSize = 60.sp,
@@ -116,9 +115,9 @@ fun MyPlayNotesScreen(
             onClick = { navController.popBackStack() },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(30.dp, 30.dp, 30.dp, 80.dp),
+                .padding(30.dp , 30.dp , 30.dp , 80.dp),
         ) {
-            Text(text = "Back")
+            Text(text = stringResource(id = R.string.BackButton_text))
         }
     }
 }

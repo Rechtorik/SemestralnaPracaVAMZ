@@ -78,7 +78,7 @@ fun LoreScreen(
             .fillMaxSize()
             .background(
                 brush = Brush.radialGradient(
-                    colors = listOf(ColorBG1, ColorBG2),  // Color(0xFF562d7d) , Color(0xFF000000)
+                    colors = listOf(ColorBG1 , ColorBG2) ,  // Color(0xFF562d7d) , Color(0xFF000000)
                     center = Offset(1080f , 1920f) , // center of the gradient
                     radius = 1500f + uiState.value // radius of the gradient
                 )
@@ -90,7 +90,7 @@ fun LoreScreen(
             modifier = Modifier.fillMaxSize()
         ) {
             Text(
-                text = "Lore Of DOOM",
+                text = stringResource(R.string.lore_title) ,
                 fontWeight = FontWeight.Bold,
                 style = typography.titleLarge,
                 modifier = Modifier.padding(15.dp, titlePadding, 15.dp, 15.dp),
@@ -154,19 +154,19 @@ fun LoreScreen(
                             .fillMaxWidth()
                             .padding(30.dp , 5.dp)
                     ) {
-                        Text(text = "Knee-Deep in the Dead")
+                        Text(text = stringResource(R.string.lore_EP1))
                     }
                     if (showEP1Dialog) {
                         EpisodeDialog(
-                            nameOfEpisode = "Knee-Deep in the Dead" ,
-                            first = "Hangar",
-                            second = "Nuclear Plant",
-                            third =  "Toxin Refinery",
-                            fourth = "Command Control" ,
-                            fifth = "Phobos Lab" ,
-                            sixth = "Central Processing" ,
-                            seventh = "Computer Station" ,
-                            eigth = "Phobos Anomaly",
+                            nameOfEpisode = stringResource(id = R.string.lore_EP1) ,
+                            first = stringResource(R.string.lore_EP1_lvl1) ,
+                            second = stringResource(R.string.lore_EP1_lvl2) ,
+                            third = stringResource(R.string.lore_EP1_lvl3) ,
+                            fourth = stringResource(R.string.lore_EP1_lvl4) ,
+                            fifth = stringResource(R.string.lore_EP1_lvl5) ,
+                            sixth = stringResource(R.string.lore_EP1_lvl6) ,
+                            seventh = stringResource(R.string.lore_EP1_lvl7) ,
+                            eigth = stringResource(R.string.lore_EP1_lvl8) ,
                             {showEP1Dialog = false}
                         )
                     }
@@ -179,19 +179,19 @@ fun LoreScreen(
                             .padding(30.dp , 5.dp),
                         onClick = { showEP2Dialog = true }
                     ) {
-                        Text(text = "The Shores of Hell")
+                        Text(text = stringResource(R.string.lore_EP2_title))
                     }
                     if (showEP2Dialog) {
                         EpisodeDialog(
-                            nameOfEpisode = "The Shores of Hell" ,
-                            first = "Deimos Anomaly",
-                            second = "Containment Area",
-                            third =  "Refinery",
-                            fourth = "Deimos Lab" ,
-                            fifth = "Command Center" ,
-                            sixth = "Halls of the Damned" ,
-                            seventh = "Spawning Vats" ,
-                            eigth = "Tower of Babel",
+                            nameOfEpisode = stringResource(id = R.string.lore_EP2_title) ,
+                            first = stringResource(R.string.lore_EP2_lvl1) ,
+                            second = stringResource(R.string.lore_EP2_lvl2) ,
+                            third = stringResource(R.string.lore_EP2_lvl3) ,
+                            fourth = stringResource(R.string.lore_EP2_lvl4) ,
+                            fifth = stringResource(R.string.lore_EP2_lvl5) ,
+                            sixth = stringResource(R.string.lore_EP2_lvl6) ,
+                            seventh = stringResource(R.string.lore_EP2_lvl7) ,
+                            eigth = stringResource(R.string.lore_EP2_lvl8) ,
                             {showEP2Dialog = false}
                         )
                     }
@@ -204,19 +204,19 @@ fun LoreScreen(
                             .padding(30.dp , 5.dp),
                         onClick = { showEP3Dialog = true }
                     ) {
-                        Text(text = "Inferno")
+                        Text(text = stringResource(R.string.lore_EP3_title))
                     }
                     if (showEP3Dialog) {
                         EpisodeDialog(
-                            nameOfEpisode = "Inferno" ,
-                            first = "Hell Keep",
-                            second = "Slough of Despair",
-                            third =  "Pandemonium",
-                            fourth = "House of Pain" ,
-                            fifth = "Unholy Cathedral" ,
-                            sixth = "Mt. Erebus" ,
-                            seventh = "Limbo" ,
-                            eigth = "Dis",
+                            nameOfEpisode = stringResource(id = R.string.lore_EP3_title) ,
+                            first = stringResource(R.string.lore_EP3_lvl1) ,
+                            second = stringResource(R.string.lore_EP3_lvl2) ,
+                            third = stringResource(R.string.lore_EP3_lvl3) ,
+                            fourth = stringResource(R.string.lore_EP3_lvl4) ,
+                            fifth = stringResource(R.string.lore_EP3_lvl5) ,
+                            sixth = stringResource(R.string.lore_EP3_lvl6) ,
+                            seventh = stringResource(R.string.lore_EP3_lvl7) ,
+                            eigth = stringResource(R.string.lore_EP3_lvl8) ,
                             {showEP3Dialog = false}
                         )
                     }
@@ -233,7 +233,7 @@ fun LoreScreen(
                 .align(Alignment.BottomCenter)
                 .padding(buttonPadding)
         ) {
-            Text(text = "Back!")
+            Text(text = stringResource(id = R.string.BackButton_text))
         }
     }
 }
