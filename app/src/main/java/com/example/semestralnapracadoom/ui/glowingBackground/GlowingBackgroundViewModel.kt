@@ -24,7 +24,7 @@ class GlowingBackgroundViewModel : ViewModel() {
     fun glowingBackground() {
         viewModelScope.launch {
             while (isActive) {
-                delay(50) // Pozastaví korutinu na 250 milisekúnd
+                delay(50) // Pozastaví korutinu na 50 milisekúnd
                 if (_uiState.value.backward) {
                     _uiState.update {currentState ->
                         currentState.copy(

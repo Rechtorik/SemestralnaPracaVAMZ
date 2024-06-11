@@ -89,7 +89,7 @@ class QuizViewModel : ViewModel() {
         )
     )
 
-    val firstQuestionIndex = Random.nextInt(0, questions.size)
+    private val firstQuestionIndex = Random.nextInt(0, questions.size)
     private val _uiState = MutableStateFlow(
         QuizUiState(
             curQuestion = questions[firstQuestionIndex],
