@@ -175,7 +175,7 @@ fun MyPlayScreenPortrait(
             elevation = ButtonDefaults.buttonElevation(8.dp),
             onClick = {
                 myPlayUiState.level.note = myPlayUiState.note
-                navController.navigate(NavRoute.MAIN_MENU.route)
+                navController.popBackStack()
             },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
@@ -255,7 +255,7 @@ fun MyPlayScreenLandscape(
                     elevation = ButtonDefaults.buttonElevation(8.dp),
                     onClick = {
                         myPlayUiState.level.note = myPlayUiState.note
-                        navController.navigate(NavRoute.MAIN_MENU.route)
+                            navController.popBackStack()
                     },
                     modifier = Modifier
                         .padding(30.dp)

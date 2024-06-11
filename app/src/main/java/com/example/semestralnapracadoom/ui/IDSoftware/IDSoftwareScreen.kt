@@ -140,7 +140,7 @@ fun IDSoftwareScreen(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(buttonPadding),
-            onClick = { navController.navigate(NavRoute.MAIN_MENU.route) }
+            onClick = { navController.popBackStack() }
         ) {
             Text(text = stringResource(id = R.string.BackButton_text))
         }
